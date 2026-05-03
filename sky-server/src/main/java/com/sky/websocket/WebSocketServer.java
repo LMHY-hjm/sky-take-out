@@ -18,12 +18,14 @@ public class WebSocketServer {
 
     @OnOpen
     public void onOpen(Session session, @PathParam("sid") String sid) {
+        System.out.println("客户端：" + sid + "建立连接");
         sessionMap.put(sid, session);
     }
 
     @OnClose
     public void onClose(@PathParam("sid") String sid) {
         sessionMap.remove(sid);
+        System.out.println("客户端：" + sid + "断开连接");
     }
 
     // 给所有商家发消息

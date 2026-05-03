@@ -12,7 +12,7 @@
                 and user_id = #{userId}
             </if>
             <if test="setmealId != null">
-                and sertmeal_id = #{setmealId}
+                and setmeal_id = #{setmealId}
             </if>
             <if test="dishId != null">
                 and dish_id = #{dishId}

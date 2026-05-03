@@ -167,8 +167,9 @@ public class OrderServiceImpl implements OrderService {
         log.info("调用updateStatus，用于替换微信支付更新数据库状态的问题");
         orderMapper.updateStatus(OrderStatus,OrderPaidStatus,check_out_time,orderNumber);
 
+        //通过websocket向客户端浏览器推送消息 type orderId content
         Map map = new HashMap();
-        map.put("type",1);//消息类型，1表示来单提醒
+        map.put("type",1);//消息类型，1表示来单提醒,2表示客户催单
         //获取订单id
         Orders orders = orderMapper.getByNumber(orderNumber);
 
@@ -182,9 +183,10 @@ public class OrderServiceImpl implements OrderService {
         map.put("orderId",orders.getId());
         map.put("content","订单号：" + orderNumber);
 
+        String json = JSON.toJSONString(map);
         //通过webSocket实现来单提醒，向客户端浏览器推送信息
-        webSocketServer.sendToAllClient(JSONObject.toJSONString(map));
-        log.info("来单提醒：{}", JSON.toJSONString(map));
+        webSocketServer.sendToAllClient(json);
+        log.info("来单提醒：{}", json);
 
         return vo;
     }
