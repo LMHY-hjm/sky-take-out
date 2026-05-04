@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DataOverViewQueryDTO implements Serializable {
 
+
     private LocalDateTime begin;
 
     private LocalDateTime end;
