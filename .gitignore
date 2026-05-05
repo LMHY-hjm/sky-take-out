@@ -1,0 +1,31 @@
+# 编译输出目录
+target/
+*.class
+
+# IDE 配置文件
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# 测试文件
+**/test/
+*Test.java
+
+# 日志文件
+*.log
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# ==================== 最重要的 ====================
+# 阿里云密钥配置文件（绝对不上传）
+application-dev.yml
+application-local.yml
+application-prod.yml
+application-*.yml
+application-*.properties
+
+# 允许上传示例模板文件
+!application-*-example.yml
