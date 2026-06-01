@@ -20,7 +20,11 @@ target/
 Thumbs.db
 
 # ==================== 最重要的 ====================
+<<<<<<< HEAD
 # 阿里云密钥配置文件（绝对不上传）
+=======
+# 阿里云密钥配置文件
+>>>>>>> 85679caeb6aa5f3686f299a2b416fda8c330927a
 application-dev.yml
 application-local.yml
 application-prod.yml
@@ -28,4 +32,8 @@ application-*.yml
 application-*.properties
 
 # 允许上传示例模板文件
+<<<<<<< HEAD
 !application-*-example.yml
+=======
+!application-*-example.yml
+>>>>>>> 85679caeb6aa5f3686f299a2b416fda8c330927a
