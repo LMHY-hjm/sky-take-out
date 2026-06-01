@@ -581,8 +581,14 @@ public class OrderServiceImpl implements OrderService {
         map.put("orderId",id);
         map.put("content","订单号：" + ordersDB.getStatus());
 
+        String json = JSON.toJSONString(map);
+
+        //通过发送mq进行催单
+        rocketMQTemplate.convertAndSend("reminder_topic",json);
+        log.info("已发送催单通知到MQ：{}", json);
+
         //通过websocket向客户端通过浏览器推送消息
-        webSocketServer.sendToAllClient(JSON.toJSONString(map));
+//        webSocketServer.sendToAllClient(JSON.toJSONString(map));
 
 
     }
