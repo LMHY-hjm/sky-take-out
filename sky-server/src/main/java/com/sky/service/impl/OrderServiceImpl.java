@@ -22,11 +22,13 @@ import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 import com.sky.websocket.WebSocketServer;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,6 +57,8 @@ public class OrderServiceImpl implements OrderService {
     private WeChatPayUtil weChatPayUtil;
     @Autowired
     private WebSocketServer webSocketServer;
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
 
 
     /**
@@ -184,9 +188,14 @@ public class OrderServiceImpl implements OrderService {
         map.put("content","订单号：" + orderNumber);
 
         String json = JSON.toJSONString(map);
+
+        //发送到MQ
+        rocketMQTemplate.convertAndSend("order_topic", json);
+        log.info("发送订单通知到MQ：{}", json);
+
         //通过webSocket实现来单提醒，向客户端浏览器推送信息
-        webSocketServer.sendToAllClient(json);
-        log.info("来单提醒：{}", json);
+//        webSocketServer.sendToAllClient(json);
+//        log.info("来单提醒：{}", json);
 
         return vo;
     }

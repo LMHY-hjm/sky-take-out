@@ -17,6 +17,9 @@ spring:
     port: ${sky.redis.port}
     database: ${sky.redis.database}
 #    password: ${sky.redis.password}没设置所以不写,否则运行报错
+rocketmq:
+  producer:
+    group: order-producer-group
 
 mybatis:
   #mapper配置文件
@@ -53,3 +56,4 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+
